@@ -127,7 +127,7 @@ elif psp_PC_CA == 0:
 else:
     # Сохраняем только знаки псевдоскалярных произведений
     sign_psp_PA_AB = math.copysign(1, psp_PA_AB)
-    sign_psp_PB_BC = math.copysign(1, psp_PB_BC)   
+    sign_psp_PB_BC = math.copysign(1, psp_PB_BC)
     sign_psp_PC_CA = math.copysign(1, psp_PC_CA)
 
     # Если три произведения имеют один и тот же знак, точка лежит внутри треугольника
