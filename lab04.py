@@ -1,6 +1,6 @@
 """
 IU7-15B Davydov Mikhail
-Lab 4 - Loops v5
+Lab 4 - Loops v8
 """
 import math
 
