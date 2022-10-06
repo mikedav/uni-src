@@ -110,7 +110,7 @@ if num_points < 2:
     print("График невозможно построить по 1 значению. ")
     sys.exit()
 
-# Запрашиваем ввод числа секций
+# Запрашиваем ввод числа засечек
 num_sections = 0
 
 while num_sections > 8 or num_sections < 4:
@@ -120,12 +120,13 @@ while num_sections > 8 or num_sections < 4:
 value_interval = func2_max_value - func2_min_value # Интервал значений y2
 section_length = value_interval / num_sections # Расстояние между "засечками"
 # Ширина печати расстояния между засечками
-f_section_print_width = plot_print_width / num_sections
-section_print_width = math.floor(f_section_print_width)
-spw_extra = f_section_print_width - section_print_width
+f_section_print_width = plot_print_width / num_sections # В дробной форме
+section_print_width = math.floor(f_section_print_width) # Округлено в меньшую
+section_print_width_frac = f_section_print_width - section_print_width # Дробная часть
+# Если дробная часть ненулевая, стоит добавлять пробел раз в несколько засечек
 num_add_extra_space_every_n_sections = 1e10
-if spw_extra:
-    num_add_extra_space_every_n_sections = round(1 / spw_extra)
+if section_print_width_frac:
+    num_add_extra_space_every_n_sections = round(1 / section_print_width_frac)
 length_per_char = value_interval / plot_print_width # Расстояние на одно знакоместо
 
 # На строке с подписями оси ординат делаем отступ
