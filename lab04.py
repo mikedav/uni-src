@@ -53,9 +53,9 @@ func2_max_value = float("-inf")
 func2_min_arg = start_point
 
 # Сформируем и напечатаем шапку таблицы
-tabletop_x_text = "x".center(row_width)
-tabletop_y1_text = "y1".center(row_width)
-tabletop_y2_text = "y2".center(row_width)
+tabletop_x_text = f"{'x':^{row_width}}"
+tabletop_y1_text = f"{'y1':^{row_width}}"
+tabletop_y2_text = f"{'y2':^{row_width}}"
 
 tabletop_line = table_line_unformatted.format(tabletop_x_text,
     tabletop_y1_text, tabletop_y2_text)
@@ -70,18 +70,18 @@ print(table_hor_line)
 # границ диапазона
 while arg_value < end_point + eps:
     # Формируем поле таблицы со значением х
-    arg_text = f"{arg_value:6g}".center(row_width)
+    arg_text = f"{arg_value:{row_width}.6g}"
 
     if arg_value >= 0:
         # Формируем поле таблицы со значением y1
         func1_value = math.sqrt(arg_value) - 2 * math.cos(math.pi / 2 * arg_value)
-        func1_text = f"{func1_value:6g}".center(row_width)
+        func1_text = f"{func1_value:^{row_width}.6g}"
     else:
-        func1_text = "undefined".center(row_width)
+        func1_text = f"{'Не задано':^{row_width}}"
 
     # Формируем поле таблицы со значением y2
     func2_value = math.tan(0.2 * arg_value + 0.3) - arg_value**2 + 3
-    func2_text = f"{func2_value:6g}".center(row_width)
+    func2_text = f"{func2_value:^{row_width}.6g}"
 
     # Проверяем, является ли рассматриваемая точка минимумом
     # или максимумом функции №2
@@ -135,10 +135,10 @@ legend_y = " " * margin_for_x_values
 # Формируем подписи на "засечках"
 for i in range(num_sections):
     section_marker = func2_min_value + i * section_length
-    legend_y += f"{section_marker:2.2g}".ljust(section_print_width)
+    legend_y += f"{section_marker:<{section_print_width}.6g}"
     legend_y += " " * ((i % num_add_extra_space_every_n_sections) == 0)
 
-legend_y += f"{func2_max_value:2.2g}".ljust(section_print_width)
+legend_y += f"{func2_max_value:<{section_print_width}.6g}"
 
 # Выводим подписи
 print(legend_y)
@@ -170,7 +170,7 @@ while arg_value < end_point + eps:
     plot_line = plot_line[:asterisk_index] + "*" + plot_line[asterisk_index + 1:]
 
     # Добавляем подпись со значением х
-    legend_x = f"{arg_value:6g}|".rjust(margin_for_x_values)
+    legend_x = f"{arg_value:>{margin_for_x_values}.6g}|"
 
     print(legend_x + plot_line)
 
