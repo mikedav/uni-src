@@ -3,15 +3,25 @@ IU7-15B Davydov Mikhail
 Lab 4 - Loops v8
 """
 import math
+import sys
 
-# Константы из условия задачи
-start_point = .5 # Начало
-end_point = 3. # Конец
-delta_x = .1 # Шаг
+# Запрашиваем ввод отрезка
+start_point = float(input("Введите точку начала интервала: "))
+end_point = float(input("Введите точку конца интервала: "))
+delta_x = float(input("Введите шаг: "))
+
+# Проверка на дурака
+if start_point > end_point:
+    print("Начальная точка должна быть меньше конечной.")
+    sys.exit()
+
+if delta_x <= 0:
+    print("Шаг должен быть положительным")
+    sys.exit()
 
 # Базовые рассчеты
 interval_length = end_point - start_point # Длина диапазона
-num_points = round(interval_length / delta_x) # Число точек
+num_points = math.floor(interval_length / delta_x) + 1 # Число точек
 
 # Маленькое число, нужное, чтобы избегать
 # ошибок, связанных с представлением чисел
@@ -24,8 +34,8 @@ table_hor_line = "-" * table_width # Горизонтальная черта
 table_line_unformatted = "|{0}|{1}|{2}|" # Рамка таблицы
 
 # Константы, определяющие внешний вид графика
-print_width = 85 # Ширина печати
-margin_for_x_values = 5 # Ширина поля со значениями x
+print_width = 80 # Ширина печати
+margin_for_x_values = 15 # Ширина поля со значениями x
 plot_print_width = print_width - margin_for_x_values # Ширина самого графика
 
 # Установим х в начальную точку
@@ -62,9 +72,12 @@ while arg_value < end_point + eps:
     # Формируем поле таблицы со значением х
     arg_text = f"{arg_value:6g}".center(row_width)
 
-    # Формируем поле таблицы со значением y1
-    func1_value = math.sqrt(arg_value) - 2 * math.cos(math.pi / 2 * arg_value)
-    func1_text = f"{func1_value:6g}".center(row_width)
+    if arg_value >= 0:
+        # Формируем поле таблицы со значением y1
+        func1_value = math.sqrt(arg_value) - 2 * math.cos(math.pi / 2 * arg_value)
+        func1_text = f"{func1_value:6g}".center(row_width)
+    else:
+        func1_text = "undefined".center(row_width)
 
     # Формируем поле таблицы со значением y2
     func2_value = math.tan(0.2 * arg_value + 0.3) - arg_value**2 + 3
@@ -93,6 +106,10 @@ print(table_hor_line)
 
 print(f"Минимум y2 достигается при x = {func2_min_arg:6g} и равен y2 = {func2_min_value:6g}")
 
+if num_points < 2:
+    print("График невозможно построить по 1 значению. ")
+    sys.exit()
+
 # Запрашиваем ввод числа секций
 num_sections = 0
 
@@ -103,7 +120,12 @@ while num_sections > 8 or num_sections < 4:
 value_interval = func2_max_value - func2_min_value # Интервал значений y2
 section_length = value_interval / num_sections # Расстояние между "засечками"
 # Ширина печати расстояния между засечками
-section_print_width = math.floor(plot_print_width / num_sections)
+f_section_print_width = plot_print_width / num_sections
+section_print_width = math.floor(f_section_print_width)
+spw_extra = f_section_print_width - section_print_width
+num_add_extra_space_every_n_sections = 1e10
+if spw_extra:
+    num_add_extra_space_every_n_sections = round(1 / spw_extra)
 length_per_char = value_interval / plot_print_width # Расстояние на одно знакоместо
 
 # На строке с подписями оси ординат делаем отступ
@@ -112,7 +134,10 @@ legend_y = " " * margin_for_x_values
 # Формируем подписи на "засечках"
 for i in range(num_sections):
     section_marker = func2_min_value + i * section_length
-    legend_y += f"{section_marker:6g}".center(section_print_width)
+    legend_y += f"{section_marker:2.2g}".ljust(section_print_width)
+    legend_y += " " * ((i % num_add_extra_space_every_n_sections) == 0)
+
+legend_y += f"{func2_max_value:2.2g}".ljust(section_print_width)
 
 # Выводим подписи
 print(legend_y)
