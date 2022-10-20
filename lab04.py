@@ -34,8 +34,8 @@ table_hor_line = "-" * table_width # Горизонтальная черта
 table_line_unformatted = "|{0}|{1}|{2}|" # Рамка таблицы
 
 # Константы, определяющие внешний вид графика
-print_width = 80 # Ширина печати
-margin_for_x_values = 15 # Ширина поля со значениями x
+print_width = 100 # Ширина печати
+margin_for_x_values = 10 # Ширина поля со значениями x
 plot_print_width = print_width - margin_for_x_values # Ширина самого графика
 
 # Установим х в начальную точку
@@ -70,6 +70,10 @@ print(table_hor_line)
 # границ диапазона
 while arg_value < end_point + eps:
     # Формируем поле таблицы со значением х
+    
+    if abs(arg_value) < eps:
+        arg_value = 0.
+
     arg_text = f"{arg_value:{row_width}.6g}"
 
     if arg_value >= 0:
@@ -169,8 +173,11 @@ while arg_value < end_point + eps:
 
     plot_line = plot_line[:asterisk_index] + "*" + plot_line[asterisk_index + 1:]
 
+    if abs(arg_value) < eps:
+        arg_value = 0.
+
     # Добавляем подпись со значением х
-    legend_x = f"{arg_value:>{margin_for_x_values}.6g}|"
+    legend_x = f"{arg_value:>{margin_for_x_values}.2g}|"
 
     print(legend_x + plot_line)
 
