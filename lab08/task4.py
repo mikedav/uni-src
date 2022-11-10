@@ -25,8 +25,10 @@ while True:
 	
 	len_diff = len(row) - row_length
 	if len_diff > 0:
-		row = row[:-len_diff]
-		print("Введенная строка была обрезана для соответствия предыдущим")
+		for existing_row in mat:
+			existing_row.extend([0.] * len_diff)
+		row_length = len(row)
+		print("Введенные до этого строки дополнены нулями для соответствия только что введенной")
 	if len_diff < 0:
 		row.extend([0.] * (-len_diff))
 		print("Введенная строка была дополнена нулями для соответствия предыдущим")

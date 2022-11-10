@@ -15,6 +15,8 @@ max_neg_count = float("-inf")
 max_neg_count_index = 0
 min_neg_count_index = 0
 
+row_length = 0
+
 while True:
 	row_str = input()
 	if len(row_str) == 0:
@@ -24,6 +26,20 @@ while True:
 	
 	if len(row) == 0:
 		continue
+
+	if len(mat) == 0:
+		row_length = len(row)
+
+	len_diff = len(row) - row_length
+
+	if len_diff > 0:
+		for existing_row in mat:
+			existing_row.extend([0.] * len_diff)
+		row_length = len(row)
+		print("Введенные до этого строки дополнены нулями для соответствия только что введенной")
+	if len_diff < 0:
+		row.extend([0.] * (-len_diff))
+		print("Введенная строка была дополнена нулями для соответствия предыдущим")
 
 	mat.append(row)
 
