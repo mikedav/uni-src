@@ -2,7 +2,7 @@ def integral_real(start, end, a_der):
 	return a_der(end) - a_der(start)
 
 def integral_digital(start, end, num_columns, subject, method):
-	int_width = start - end
+	int_width = end - start
 	col_width = int_width / num_columns
 	return sum([method(start + i * col_width, col_width, subject) for i in range(num_columns)])
 
