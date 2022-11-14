@@ -4,7 +4,7 @@ def integral_real(start, end, a_der):
 def integral_digital(start, end, num_columns, subject, method):
 	int_width = start - end
 	col_width = int_width / num_columns
-	return sum([method(start + i * col_width, col_width, subject) for i in range(num_columns + 1)])
+	return sum([method(start + i * col_width, col_width, subject) for i in range(num_columns)])
 
 def m_three_eights(point, width, subject):
 	step = width / 3
