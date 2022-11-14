@@ -24,4 +24,4 @@ def m_right_column(point, width, subject):
 	return subject(point + width) * width
 
 def m_mid_column(point, width, subject):
-	return (subject(point) + subject(point + width)) / 2 * width
+	return subject(point + width / 2) / 2 * width
