@@ -65,6 +65,7 @@ if len(mat) > 0:
 		col_sum = 0
 		for j in range(col_length):
 			col_sum += mat[j][i]
+		print(col_sum)
 		col_abs_sum = abs(col_sum)
 		if col_abs_sum < abs_sum_min:
 			abs_sum_min = col_abs_sum
