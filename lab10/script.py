@@ -27,7 +27,10 @@ def main(subject, real_a_der):
 		if new_abs_err < eps_zero:
 			new_abs_err = 0.
 		abs_err.append(new_abs_err)
-		rel_err.append(abs_err[-1]/integral_real)
+		if integral_real != 0.:
+			rel_err.append(abs_err[-1]/integral_real)
+		else:
+			rel_err.append(0.)
 
 	table = begin_table(3, 25)
 	add_row(table, "", f"N1={sections_num1}", f"N2={sections_num2}")
