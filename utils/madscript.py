@@ -1,3 +1,9 @@
+"""
+Usage:
+python madscript.py lab05.py testdata.json > results.txt
+"""
+
+
 import os
 import json
 import sys
