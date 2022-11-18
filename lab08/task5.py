@@ -29,24 +29,30 @@ while len(mat) < mat_size:
 	if len_diff > 0:
 		for existing_row in mat:
 			existing_row.extend([0.] * len_diff)
-		row_length = len(row)
+		mat_size = len(row)
 		print("Введенные до этого строки дополнены нулями для соответствия только что введенной")
 	if len_diff < 0:
 		row.extend([0.] * (-len_diff))
 		print("Введенная строка была дополнена нулями для соответствия предыдущим")
 
 	mat.append(row)
-	if len(mat) < mat_size:
-		for num in row[len(mat):]:
-			max_above_main = max(num, max_above_main)
-	if len(mat) > 1:
-		for num in row[-len(mat) + 1:]:
-			min_under_sec = min(num, min_under_sec)
+	
 
+for row, index in zip(mat, range(len(mat))):
+	if index + 1 < mat_size:
+		for num in row[index + 1:]:
+			max_above_main = max(num, max_above_main)
+	if index > 0:
+		for num in row[-index:]:
+			min_under_sec = min(num, min_under_sec)
 
 # Остается только вывести матрицу и найденные значения
 for row in mat:
 	print("|", ("{:^10.5g}|"*len(row)).format(*row))
+
+if mat_size < 2:
+	print("Матрица слишком мала для выполнения задания")
+	quit()
 
 print(f"Наибольшее значение над главной диагональю: {max_above_main:5g}")
 print(f"Наименьшее значение под побочной диагональю: {min_under_sec:5g}")

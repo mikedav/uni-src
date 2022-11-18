@@ -22,7 +22,7 @@ for td, num in zip(testdata, range(len(testdata))):
     print(f"tmp contents:\n{td}", flush=True)
     with open("tmp", "w") as f:
         f.write(td)
-    execlog(f"cat tmp | python {scriptname}")
+    execlog(f"cat tmp | python3 {scriptname}")
     print("\n\n\n", flush=True)
 
 execlog("rm tmp")
